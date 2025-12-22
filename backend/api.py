@@ -56,3 +56,7 @@ def complete_a_habit(habit_id):
 def del_old_habit(habit_id):
     delete_habit(habit_id)
     return redirect(url_for('home'))
+
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5000)
