@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template, redirect, url_for
 from database import (check_and_apply_decay,
-                      get_all_habits_with_tamagotchis, has_completed_today,
+                      get_all_habits_with_tamagochis, has_completed_today,
                       create_habit, add_completion,
                       delete_habit)
 
@@ -22,12 +22,12 @@ def home():
     check_and_apply_decay()
 
     # get all data
-    habits = get_all_habits_with_tamagotchis()
+    habits = get_all_habits_with_tamagochis()
 
     for habit in habits:
         habit['completed_today'] = has_completed_today(habit['habit_id'])
 
-    return render_template('index.html', habits=habits)
+    return render_template('frontend/templates/index.html', habits=habits)
 
 
 @app.route('/habit/create', methods=['POST'])
@@ -42,17 +42,17 @@ def add_habit():
     create_habit(name, description, target_frequency, frequency_unit)
 
     # Redirect back to home
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 
 @app.route("/habit/<habit_id>/complete", methods=['POST'])
 def complete_a_habit(habit_id):
     # add a completion to the db
     add_completion(habit_id)
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 
 @app.route("/habit/<habit_id>/delete")
 def del_old_habit(habit_id):
     delete_habit(habit_id)
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
