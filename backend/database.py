@@ -17,9 +17,9 @@ def get_db_connection() -> connection:
     ...
 
 
-def create_habit(name: str, description: str, target_frequency: int, frequency_unit: str) -> dict:
+def create_habit(habit_name: str, description: str, target_frequency: int, frequency_unit: str) -> dict:
     query = sql.SQL("""
-        INSERT INTO habit (name, description, target_frequency, frequency_unit)
+        INSERT INTO habit (habit_name, description, target_frequency, frequency_unit)
         VALUES (%s, %s, %s, %s)
         RETURNING habit_id, name, description, target_frequency, frequency_unit;
     """)
@@ -34,3 +34,4 @@ def create_habit(name: str, description: str, target_frequency: int, frequency_u
             conn.commit()
 
     return habit
+
