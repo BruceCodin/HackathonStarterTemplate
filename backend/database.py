@@ -7,14 +7,13 @@ import os
 
 
 def get_db_connection() -> connection:
-    # return connect(
-    #     dbname=os.environ["DB_NAME"],
-    #     user=os.environ["DB_USER"],
-    #     password=os.environ["DB_PASSWORD"],
-    #     host=os.environ.get("DB_HOST"),
-    #     port=os.environ.get("DB_PORT")
-    # )
-    ...
+    return connect(
+        dbname=ENV["DB_NAME"],
+        user=ENV["DB_USER"],
+        password=ENV["DB_PASSWORD"],
+        host=ENV["DB_HOST"],
+        port=ENV["DB_PORT"]
+    )
 
 
 def create_habit(habit_name: str, habit_description: str, target_frequency: int, frequency_unit: str) -> dict:
