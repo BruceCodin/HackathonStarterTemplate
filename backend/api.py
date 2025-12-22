@@ -5,7 +5,7 @@ from database import (check_and_apply_decay,
                       get_all_habits_with_tamagochis, has_completed_today,
                       create_habit, add_completion,
                       delete_habit)
-
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
@@ -59,4 +59,5 @@ def del_old_habit(habit_id):
 
 
 if __name__ == "__main__":
+    load_dotenv()
     app.run(debug=True, host="0.0.0.0", port=5000)

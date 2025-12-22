@@ -1,4 +1,4 @@
-from os import environ as ENV
+from os import environ
 from psycopg2 import connect
 from psycopg2 import sql
 from psycopg2.extras import RealDictCursor
@@ -8,17 +8,18 @@ import os
 
 def get_db_connection() -> connection:
     return connect(
-        dbname=ENV["DB_NAME"],
-        user=ENV["DB_USER"],
-        password=ENV["DB_PASSWORD"],
-        host=ENV["DB_HOST"],
-        port=ENV["DB_PORT"]
-    )
+        dbname=os.environ["DB_NAME"],
+        user=os.environ["DB_USER"],
+        password=os.environ["DB_PASSWORD"],
+        host=os.environ["DB_HOST"],
+        port=os.environ["DB_PORT"]
+     )
+
 
 
 def create_habit(habit_name: str, habit_description: str, target_frequency: int, frequency_unit: str) -> dict:
     query = sql.SQL("""
-        INSERT INTO habit (habit_name, habit_description, target_frequency, frequency_unit)
+        INSERT INTO habits (habit_name, habit_description, target_frequency, frequency_unit)
         VALUES (%s, %s, %s, %s)
         RETURNING habit_id, habit_name, habit_description, target_frequency, frequency_unit;
     """)
@@ -50,9 +51,8 @@ def get_all_habits_with_tamagochis() -> list[dict]:
             t.habit_id,
             t.tamagotchi_name,
             t.happiness_level,
-            t.size_level,
             t.created_at
-        FROM habit h
+        FROM habits h
         LEFT JOIN tamagotchi t
             ON h.habit_id = t.habit_id
         ORDER BY h.habit_id;
@@ -81,9 +81,8 @@ def get_habit_by_id(habit_id: int) -> dict:
             t.habit_id,
             t.tamagotchi_name,
             t.happiness_level,
-            t.size_level,
             t.created_at
-        FROM habit h
+        FROM habits h
         LEFT JOIN tamagotchi t
             ON h.habit_id = t.habit_id
         WHERE h.habit_id = %s;
@@ -97,7 +96,7 @@ def get_habit_by_id(habit_id: int) -> dict:
 
 def delete_habit(habit_id: int) -> bool:
     query = """
-        UPDATE habit h
+        UPDATE habits h
         SET is_active = FALSE
         WHERE h.habit_id = %s;
     """
@@ -119,7 +118,6 @@ def get_tamagotchi_by_id(habit_id: int) -> dict | None:
             t.habit_id,
             t.tamagotchi_name,
             t.happiness_level,
-            t.size_level,
             t.created_at
         FROM tamagotchi t
         WHERE t.habit_id = %s;
@@ -300,3 +298,4 @@ def check_and_apply_decay() -> int:
         conn.commit()
 
     return updated_count
+
