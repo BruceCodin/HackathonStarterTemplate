@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template, redirect, url_for
 from database import (check_and_apply_decay,
-                      get_all_habits_with_tamagotchis, has_completed_today,
+                      get_all_habits_with_tamagochis, has_completed_today,
                       create_habit, add_completion,
                       delete_habit)
 
@@ -22,7 +22,7 @@ def home():
     check_and_apply_decay()
 
     # get all data
-    habits = get_all_habits_with_tamagotchis()
+    habits = get_all_habits_with_tamagochis()
 
     for habit in habits:
         habit['completed_today'] = has_completed_today(habit['habit_id'])
