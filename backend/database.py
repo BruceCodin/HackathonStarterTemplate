@@ -21,14 +21,14 @@ def create_habit(habit_name: str, description: str, target_frequency: int, frequ
     query = sql.SQL("""
         INSERT INTO habit (habit_name, description, target_frequency, frequency_unit)
         VALUES (%s, %s, %s, %s)
-        RETURNING habit_id, name, description, target_frequency, frequency_unit;
+        RETURNING habit_id, habit_name, description, target_frequency, frequency_unit;
     """)
 
     with get_db_connection() as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cursor:
             cursor.execute(
                 query,
-                (name, description, target_frequency, frequency_unit)
+                (habit_name, description, target_frequency, frequency_unit)
             )
             habit = cursor.fetchone()
             conn.commit()
