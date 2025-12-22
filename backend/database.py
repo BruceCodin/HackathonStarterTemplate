@@ -172,7 +172,9 @@ def calculate_tamagotchi_state(habit_id: int) -> str | None:
         return "neutral"
     else:
         return "sad"
+    
 
+# Completion Functions
 
 def add_completion(habit_id: int) -> dict:
     query = """
@@ -219,3 +221,83 @@ def get_completions_by_id(habit_id: int, days: int = 7) -> list[dict]:
         with conn.cursor(cursor_factory=RealDictCursor) as cursor:
             cursor.execute(query, (habit_id, days))
             return cursor.fetchall()
+
+
+def get_last_completion(habit_id: int) -> dict:
+    query = """
+        SELECT
+            hc.completion_id,
+            hc.habit_id,
+            hc.completion_date,
+            hc.completed_at
+        FROM habit_completion hc
+        WHERE hc.habit_id = %s
+        ORDER BY hc.completed_at DESC
+        LIMIT 1;
+    """
+
+    with get_db_connection() as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cursor:
+            cursor.execute(query, (habit_id,))
+            return cursor.fetchone()
+
+
+def has_completed_today(habit_id: int) -> bool:
+    query = """
+        SELECT 1
+        FROM habit_completion hc
+        WHERE hc.habit_id = %s
+          AND hc.completion_date = CURRENT_DATE
+        LIMIT 1;
+    """
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(query, (habit_id,))
+            return cursor.fetchone() is not None
+
+
+def check_and_apply_decay() -> int:
+    """
+    Applies happiness decay to tamagotchis whose habits
+    have not been completed today.
+
+    Returns the number of tamagotchis updated.
+    """
+
+    select_query = """
+        SELECT
+            t.tamagotchi_id,
+            t.happiness_level
+        FROM tamagotchi t
+        LEFT JOIN habit_completion hc
+            ON t.habit_id = hc.habit_id
+            AND hc.completion_date = CURRENT_DATE
+        WHERE hc.completion_id IS NULL;
+    """
+
+    update_query = """
+        UPDATE tamagotchi t
+        SET happiness_level = %s
+        WHERE t.tamagotchi_id = %s;
+    """
+
+    updated_count = 0
+
+    with get_db_connection() as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cursor:
+            cursor.execute(select_query)
+            tamagotchis = cursor.fetchall()
+
+            for t in tamagotchis:
+                new_happiness = max(t["happiness_level"] - 1, 0)
+
+                cursor.execute(
+                    update_query,
+                    (new_happiness, t["tamagotchi_id"])
+                )
+                updated_count += 1
+
+        conn.commit()
+
+    return updated_count
