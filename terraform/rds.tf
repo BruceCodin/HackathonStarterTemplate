@@ -53,7 +53,6 @@ resource "aws_security_group" "tamagotchi_db_sg" {
 resource "aws_db_instance" "hackathon_db" {
   identifier        = var.db_identifier
   engine            = "postgres"
-  engine_version    = var.engine_version
   instance_class    = var.db_instance_class
   allocated_storage = var.allocated_storage
   storage_type      = "gp2"

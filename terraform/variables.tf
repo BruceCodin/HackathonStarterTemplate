@@ -41,7 +41,7 @@ variable "allocated_storage" {
 
 variable "engine_version" {
   type    = string
-  default = "16.3"
+  default = "16.2"
 }
 
 variable "db_port" {
