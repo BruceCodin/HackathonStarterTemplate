@@ -25,12 +25,12 @@ def create_habit(habit_name: str, habit_description: str, target_frequency: int,
     """)
 
     query2 = sql.SQL("""
-                    INSERT INTO tamagotchi (tamagotchi_name, happiness_level, created_at)
+                    INSERT INTO tamagotchi (habit_id, tamagotchi_name, happiness_level)
                     VALUES(%s, %s, %s);
                     """)
 
     query3 = sql.SQL("""
-                INSERT INTO habits_completion (habit_id, completion_date, completed_at)
+                INSERT INTO habit_completion (habit_id, completion_date, completed_at)
                     VALUES (%s, %s, %s);
                  """)
 
@@ -40,18 +40,18 @@ def create_habit(habit_name: str, habit_description: str, target_frequency: int,
                 query1,
                 (habit_name, habit_description, target_frequency, frequency_unit)
             )
-            habit_id = cursor.fetchone()['habit_id']
+            habit_id = int(cursor.fetchone()['habit_id'])
             conn.commit()
 
         with conn.cursor(cursor_factory=RealDictCursor) as cursor:
             cursor.execute(
-                query2, (habit_id, tamagotchi_name, 0, 'current_date')
+                query2, (habit_id, tamagotchi_name, 50)
             )
             conn.commit()
 
         with conn.cursor(cursor_factory=RealDictCursor) as cursor:
             cursor.execute(
-                query3, (habit_id, 'Null', 'Null')
+                query3, (habit_id, None, None)
             )
             conn.commit()
 

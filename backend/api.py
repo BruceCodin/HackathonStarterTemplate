@@ -37,7 +37,7 @@ def add_habit():
     description = request.form.get('description')
     target_frequency = request.form.get('target_frequency')
     frequency_unit = request.form.get('frequency_unit')
-    tamagotchi_name = request.form.get('tamagotchi_name')
+    tamagotchi_name = request.form.get('animal_name')
 
     # Create habit in DB
     create_habit(name, description, target_frequency,
