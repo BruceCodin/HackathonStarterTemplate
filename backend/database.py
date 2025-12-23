@@ -4,8 +4,6 @@ from psycopg2 import sql
 from psycopg2.extras import RealDictCursor
 from psycopg2.extensions import connection
 import os
-import datetime
-import date
 
 
 def get_db_connection() -> connection:
