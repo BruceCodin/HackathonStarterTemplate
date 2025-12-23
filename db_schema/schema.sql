@@ -36,8 +36,8 @@ CREATE TABLE tamagotchi (
 CREATE TABLE habit_completion (
     completion_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     habit_id INT NOT NULL,
-    completion_date DATE NOT NULL,
-    completed_at TIMESTAMP NOT NULL,
+    completion_date DATE,
+    completed_at TIMESTAMP,
 
     -- Habit ID Foreign Key: 
     FOREIGN KEY (habit_id) REFERENCES habits(habit_id) ON DELETE CASCADE
