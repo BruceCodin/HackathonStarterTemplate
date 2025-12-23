@@ -1,6 +1,6 @@
 """Vercel entry point"""
-from app import app
 import sys
+from app import app
 from pathlib import Path
 
 # Add src to path so imports work
