@@ -153,11 +153,11 @@
                 <div class='habit-card'>
                     {{ habit.habit_name }}
                     {% if habit.happiness_level < 34 %}
-                        <img src="{{ url_for('gifs', filename='sad.gif') }}" alt="Sad pet">
+                        <img src="{{ url_for('static', filename='sad.gif') }}" alt="Sad pet">
                     {% elif habit.happiness_level < 67 %}
-                        <img src="{{ url_for('gifs', filename='neutral.gif') }}" alt="Neutral pet">
+                        <img src="{{ url_for('static', filename='neutral.gif') }}" alt="Neutral pet">
                     {% else %}
-                        <img src="{{ url_for('gifs', filename='happy.gif') }}" alt="Happy pet">
+                        <img src="{{ url_for('static', filename='happy.gif') }}" alt="Happy pet">
                     {% endif %}
                     {{ habit.tamagotchi_name }}
                     {{ habit.happiness_level }}
