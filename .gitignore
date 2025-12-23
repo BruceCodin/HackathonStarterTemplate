@@ -28,3 +28,6 @@ Thumbs.db
 .terraform/
 *.hcl
 *tfstate.backup
+
+
+.venv/
