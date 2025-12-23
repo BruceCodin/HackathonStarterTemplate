@@ -156,7 +156,7 @@ def update_tamagotchi_happiness(tamagotchi_id: int, happiness: int) -> bool:
         SET happiness_level = %s
         WHERE t.tamagotchi_id = %s;
     """
-
+    happiness = happiness + 10
     with get_db_connection() as conn:
         with conn.cursor() as cursor:
             cursor.execute(query, (happiness, tamagotchi_id))
