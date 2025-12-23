@@ -110,9 +110,6 @@
         form button:hover {
             background-color: rgba(255, 255, 255, 0.3);
         }
-        
-
-        
     </style>
 </head>
 
@@ -149,11 +146,14 @@
                 </div>
             </div>
         </div>
+
         <div class="outer">
             <div class ="habit_grid">
                 {% for habit in habits %}
                 <div class='habit-card'>
                     {{ habit.habit_name }}
+                    <!-- image/gif -->
+                    <!-- happiness level -->
                     {{ habit.tamagotchi_name }}
                     {{ happiness_level }}
 
