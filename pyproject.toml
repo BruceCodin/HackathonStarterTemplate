@@ -1,6 +1,0 @@
-[project]
-name = "habit-tracker-api"
-version = "0.1.0"
-
-[project.scripts]
-app = "backend.api:app"
