@@ -139,7 +139,17 @@
                             <option value="week">Per Week</option>
                             <option value="month">Per Month</option>
                         </select>
-                        <input type="text" id="animal_name" name="animal_name" placeholder="Enter a name for your habit animal...">  
+                        <input type="text" id="animal_name" name="animal_name" placeholder="Enter a name for your habit animal...">
+                        <select name="animal_type">
+                            <option value="cat">cat</option>
+                            <option value="chicken">chicken</option>
+                            <option value="cow">cow</option>
+                            <option value="dog">dog</option>
+                            <option value="goat">goat</option>
+                            <option value="owl">owl</option>
+                            <option value="pig">pig</option>
+                            <option value="sheep">sheep</option>
+                        </select>
                         <button type="submit">Create Habit</button>
                         <button type="button" onclick="hideModal()">Cancel</button>
                     </form>
@@ -153,11 +163,11 @@
                 <div class='habit-card'>
                     {{ habit.habit_name }}
                     {% if habit.happiness_level < 34 %}
-                        <img src="{{ url_for('static', filename='sad.gif') }}" alt="Sad pet">
+                        <img src="{{ url_for('static', filename='animals/' ~ habit.animal_type ~ '/sad.gif') }}" alt="Sad {{ habit.animal_type }}" >
                     {% elif habit.happiness_level < 67 %}
-                        <img src="{{ url_for('static', filename='neutral.gif') }}" alt="Neutral pet">
+                        <img src="{{ url_for('static', filename='animals/' ~ habit.animal_type ~ '/default.gif') }}" alt="Neutral {{ habit.animal_type }}" >
                     {% else %}
-                        <img src="{{ url_for('static', filename='happy.gif') }}" alt="Happy pet">
+                        <img src="{{ url_for('static', filename='animals/' ~ habit.animal_type ~ '/happy.gif') }}" alt="Happy {{ habit.animal_type }}" >
                     {% endif %}
                     {{ habit.tamagotchi_name }}
                     {{ habit.happiness_level }}
