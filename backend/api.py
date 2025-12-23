@@ -4,7 +4,9 @@ from flask import Flask, request, render_template, redirect, url_for
 from database import (check_and_apply_decay,
                       get_all_habits_with_tamagochis, has_completed_today,
                       create_habit, add_completion,
-                      delete_habit)
+                      delete_habit,
+                      get_tamagotchi_by_id,
+                      update_tamagotchi_happiness)
 from dotenv import load_dotenv
 
 app = Flask(__name__)
@@ -38,10 +40,11 @@ def add_habit():
     target_frequency = request.form.get('target_frequency')
     frequency_unit = request.form.get('frequency_unit')
     tamagotchi_name = request.form.get('animal_name')
+    animal_type = request.form.get('animal_type')
 
     # Create habit in DB
     create_habit(name, description, target_frequency,
-                 frequency_unit, tamagotchi_name)
+                 frequency_unit, tamagotchi_name, animal_type)
 
     # Redirect back to home
     return redirect(url_for('home'))
@@ -51,6 +54,9 @@ def add_habit():
 def complete_a_habit(habit_id):
     # add a completion to the db
     add_completion(habit_id)
+    id = get_tamagotchi_by_id(habit_id)['tamagotchi_id']
+    happiness_level = get_tamagotchi_by_id(habit_id)['happiness_level']
+    update_tamagotchi_happiness(id, happiness_level)
     return redirect(url_for('home'))
 
 

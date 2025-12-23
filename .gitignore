@@ -29,6 +29,8 @@ Thumbs.db
 *.hcl
 *tfstate.backup
 
-
+# Python virtual environment
 .venv/
 .venv
+__pycache__
+__pycache__/

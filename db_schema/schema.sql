@@ -11,7 +11,8 @@ CREATE TABLE habits (
     target_frequency INT NOT NULL,
     frequency_unit TEXT NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),  
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    animal_type TEXT NOT NULL DEFAULT 'cow',  
 
     -- Constraints: 
     CONSTRAINT target_frequency_check CHECK (target_frequency >= 0)

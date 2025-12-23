@@ -17,10 +17,10 @@ def get_db_connection() -> connection:
 
 
 def create_habit(habit_name: str, habit_description: str, target_frequency: int, frequency_unit: str,
-                 tamagotchi_name: str) -> dict:
+                 tamagotchi_name: str, animal_type: str) -> dict:
     query1 = sql.SQL("""
-        INSERT INTO habits (habit_name, habit_description, target_frequency, frequency_unit)
-        VALUES (%s, %s, %s, %s)
+        INSERT INTO habits (habit_name, habit_description, target_frequency, frequency_unit, animal_type)
+        VALUES (%s, %s, %s, %s, %s)
         RETURNING habit_id;
     """)
 
@@ -38,7 +38,7 @@ def create_habit(habit_name: str, habit_description: str, target_frequency: int,
         with conn.cursor(cursor_factory=RealDictCursor) as cursor:
             cursor.execute(
                 query1,
-                (habit_name, habit_description, target_frequency, frequency_unit)
+                (habit_name, habit_description, target_frequency, frequency_unit, animal_type)
             )
             habit_id = int(cursor.fetchone()['habit_id'])
             conn.commit()
@@ -66,6 +66,7 @@ def get_all_habits_with_tamagochis() -> list[dict]:
             h.frequency_unit,
             h.is_active,
             h.created_at,
+            h.animal_type,
 
             t.tamagotchi_id,
             t.habit_id,
@@ -96,6 +97,7 @@ def get_habit_by_id(habit_id: int) -> dict:
             h.frequency_unit,
             h.is_active,
             h.created_at,
+            h.animal_type,
 
             t.tamagotchi_id,
             t.habit_id,
@@ -156,7 +158,7 @@ def update_tamagotchi_happiness(tamagotchi_id: int, happiness: int) -> bool:
         SET happiness_level = %s
         WHERE t.tamagotchi_id = %s;
     """
-
+    happiness = happiness + 10
     with get_db_connection() as conn:
         with conn.cursor() as cursor:
             cursor.execute(query, (happiness, tamagotchi_id))
