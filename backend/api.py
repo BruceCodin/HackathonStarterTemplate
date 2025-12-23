@@ -40,10 +40,11 @@ def add_habit():
     target_frequency = request.form.get('target_frequency')
     frequency_unit = request.form.get('frequency_unit')
     tamagotchi_name = request.form.get('animal_name')
+    animal_type = request.form.get('animal_type')
 
     # Create habit in DB
     create_habit(name, description, target_frequency,
-                 frequency_unit, tamagotchi_name)
+                 frequency_unit, tamagotchi_name, animal_type)
 
     # Redirect back to home
     return redirect(url_for('home'))
