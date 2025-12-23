@@ -27,7 +27,7 @@ def home():
     for habit in habits:
         habit['completed_today'] = has_completed_today(habit['habit_id'])
 
-    return render_template('frontend/templates/index.html', habits=habits)
+    return render_template('templates/index.html', habits=habits)
 
 
 @app.route('/habit/create', methods=['POST'])
