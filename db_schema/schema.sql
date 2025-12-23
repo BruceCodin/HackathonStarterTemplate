@@ -9,7 +9,7 @@ CREATE TABLE habits (
     habit_name TEXT NOT NULL,
     habit_description TEXT,
     target_frequency INT NOT NULL,
-    frequency_unit TEXT NOT NULL,
+    frequency_unit INT NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),  
 
