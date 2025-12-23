@@ -66,8 +66,50 @@
             font-weight: bold;
             cursor: pointer;
         }
-
-        
+        .form {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        form input[type="text"],
+        form select {
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #654321;
+            font-size: 1rem;
+        }
+        form input[type="text"] {
+            flex: 2; /* Makes search bar wider */
+        }
+        form select {
+            flex: 1;
+        }
+        form input[type="number"],
+        form select {
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #654321;
+            font-size: 1rem;
+        }
+        form button {
+            padding: 0.75rem 2rem;
+            background-color: rgba(200, 1, 255, 0.2);
+            border: 1px solid rgba(200, 1, 255, 0.3);
+            color: #654321;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        form button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 
@@ -85,23 +127,26 @@
             <button class="btn" onclick="showModal()">Add Habit</button>
         </div>
 
-        <div id="modal" style="display: none;">
+        <div id="modal" style="display:inline">
             <div class="modal-overlay">
                 <div class="modal-content">
-                    <form>                        
-                        <input type="text" id="name" name="habit name" placeholder="enter a habit...">
-                        <input type="text" id="description" name="description" placeholder="enter a description...">
+                    <form action="/habit/create" method="POST">                                                
+                        <input type="text" id="name" name="habit_name" placeholder="Enter a habit...">
+                        <input type="text" id="description" name="description" placeholder="Enter a description...">
                         <input type="number" name="target_frequency" placeholder="How many times?" min="1">
                         <select name="frequency_unit">
                             <option value="day">Per Day</option>
                             <option value="week">Per Week</option>
                             <option value="month">Per Month</option>
                         </select>
-                        <input type="text" id="animal_name" name="animal name" placeholder="enter a name for your habit animal...">  
+                        <input type="text" id="animal_name" name="animal_name" placeholder="Enter a name for your habit animal...">  
+                        <button type="submit">Create Habit</button>
+                        <button type="button" onclick="hideModal()">Cancel</button>
                     </form>
                 </div>
             </div>
         </div>
+
         <div class="outer">
             <div class ="habit_grid">
                 {% for habit in habits %}
@@ -114,6 +159,8 @@
                     {% else %}
                         <img src="{{ url_for('frontend', filename='happy.png') }}" alt="Happy pet">
                     {% endif %}
+                    <!-- image/gif -->
+                    <!-- happiness level -->
                     {{ habit.tamagotchi_name }}
                     {{ habit.happiness_level }}
                     <form action ="/habit/{{ habit.habit_id }}/complete" method = 'POST'>
