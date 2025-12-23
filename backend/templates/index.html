@@ -97,6 +97,10 @@
             font-weight: bold;
             cursor: pointer;
         }
+
+       
+        
+       
         .form {
             max-width: 1200px;
             margin: 2rem auto;
@@ -105,41 +109,45 @@
             gap: 1rem;
             align-items: center;
         }
+        form input::placeholder,
+        form select::placeholder {
+            color: #666666; /* dark gray for readability */
+            opacity: 1;
+        }
         form input[type="text"],
-        form select {
-            padding: 0.75rem 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #654321;
-            font-size: 1rem;
-        }
-        form input[type="text"] {
-            flex: 2; /* Makes search bar wider */
-        }
-        form select {
-            flex: 1;
-        }
         form input[type="number"],
         form select {
             padding: 0.75rem 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid #000000;
             border-radius: 6px;
             background-color: rgba(255, 255, 255, 0.1);
-            color: #654321;
+            color:#000000;
+            font-weight: bold;
             font-size: 1rem;
         }
+
+        form input[type="text"] {
+            flex: 2;
+            color: #000000;
+        }
+
+        form select {
+            flex: 1;
+            color: #000000;
+        }
+
         form button {
             padding: 0.75rem 2rem;
             background-color: rgba(200, 1, 255, 0.2);
             border: 1px solid rgba(200, 1, 255, 0.3);
-            color: #654321;
+            color: #000000; /* black text */;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
         }
+
         form button:hover {
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(247, 239, 239, 0.3);
         }
 
         /* progress bar */
@@ -306,7 +314,7 @@
                     <!-- progress bar -->
                     <div class="progress">
                         <!-- <div class="progress__fill" style="width:50%;"></div> -->
-                        <div class="progress__fill" id="progress"></div>
+                        <div class="progress__fill" style = "width: {{ habit.happiness_level }}%;"></div>
                         <span class="progress__text">{{ habit.happiness_level }}</span>
                     </div>
                     
@@ -337,9 +345,6 @@
         });
         // Put it in the HTML
         document.getElementById('current-date').textContent = formattedDate;
-
-        const happiness = 50;
-        document.getElementById("progress").style.width = happiness + "%";
 
         function showModal() {
             document.getElementById('modal').style.display = 'block';
