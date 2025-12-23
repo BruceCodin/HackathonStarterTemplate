@@ -88,8 +88,16 @@
         <div id="modal" style="display: none;">
             <div class="modal-overlay">
                 <div class="modal-content">
-                    <form>
-                        
+                    <form>                        
+                        <input type="text" id="name" name="habit name" placeholder="enter a habit...">
+                        <input type="text" id="description" name="description" placeholder="enter a description...">
+                        <input type="number" name="target_frequency" placeholder="How many times?" min="1">
+                        <select name="frequency_unit">
+                            <option value="day">Per Day</option>
+                            <option value="week">Per Week</option>
+                            <option value="month">Per Month</option>
+                        </select>
+                        <input type="text" id="animal_name" name="animal name" placeholder="enter a name for your habit animal...">  
                     </form>
                 </div>
             </div>
