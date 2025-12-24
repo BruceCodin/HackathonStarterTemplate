@@ -311,7 +311,7 @@ def check_and_apply_decay() -> int:
             tamagotchis = cursor.fetchall()
 
             for t in tamagotchis:
-                new_happiness = max(t["happiness_level"] - 10, 0)
+                new_happiness = max(t["happiness_level"] - 3, 0)
 
                 cursor.execute(
                     update_query,
