@@ -1,52 +1,40 @@
-# Hackathon Starter Template
+# Habit Farming
+A Tamagotchi-inspired habit tracker hackathon project where you can track habit progression and animated farm animals grow happier as you complete habits.
 
-A simple HTML/CSS/JavaScript starter template with Bootstrap for building websites quickly.
+![Dashboard Screenshot](docs/images/dashboard.png)
 
-## Project Structure
+**Live Demo:** https://hackathon-tamagotchi.vercel.app
 
-- `index.html` - Main HTML file with Bootstrap and responsive layout
-- `styles.css` - Custom CSS styles
-- `script.js` - JavaScript for interactivity
+## About The Project
+Habit Farming is a playful, gamified habit tracker inspired by Tamagotchi-style virtual pets.  
+Users create habits and assign them to farm animals, whose mood changes based on habit completion and progresion. 
+This is designed to encourage users to be consistent with their habits through visual feedback and engagement.
 
-## Comments
+This project was built during a 2 day hackathon as a full-stack web application, focusing on user experience, persistence, and deployment.
 
-We've added comments to this template to help you understand the structure and functionality of the code.
+## Features
+- Create and manage daily habits
+- Assign habits to virtual farm animals
+- Animal moods change based on habit progression (sad / normal / happy)
+- Pixel-art inspired UI with animated GIF pets
+- Persistent data storage using a cloud-hosted database
+- Fully deployed and accessible on the web
 
-These can be safely removed once you're comfortable with the setup.
 
-## Getting Started
+## Tech Stack
+### Frontend
+- HTML
+- CSS
+- JavaScript
+- Jinja2
 
-### Running the Project
+### Backend
+- Python
+- Flask API
+- Terraform
 
-Run a local server using Python's built-in HTTP server:
+### Database
+- AWS RDS (PostgreSQL)
 
-```bash
-python -m http.server 8000
-```
-
-Then open `http://localhost:8000` in your browser.
-
-Any changes to the files will automatically reflect in the browser upon refresh.
-
-#### Auto-Reload
-
-To enable auto-reloading during development, you can use a tool like [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) in VSCode.
-
-When install, click the "Go Live" button at the bottom-right corner of VSCode to start the server with auto-reload functionality.
-
-You will then be able to see changes in real-time as you edit your files.
-
-Go to `http://localhost:5500` (or the port specified by Live Server) to view your project.
-
-## Customization
-
-- Edit `index.html` to modify content and structure
-- Edit `styles.css` to customize colors and styling
-- Edit `script.js` to add interactive features
-
-## Technologies Used
-
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-- [Bootstrap 5](https://getbootstrap.com/)
+### Deployment
+- Vercel
